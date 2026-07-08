@@ -3,7 +3,7 @@
 ## Overview
 Binary classification (healthy vs. diseased) using 22 biomedical voice measurement 
 features from the UCI Parkinson's dataset. This project compares three modeling 
-approaches: classical ML, ensemble methods, and neural networks.
+approaches: classical ML (SVM)
 
 ## Dataset
 - Source: [UCI Parkinson's Disease Data Set](link)
