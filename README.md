@@ -26,24 +26,34 @@ approaches: classical ML (SVM)
 
 ## Approaches
 1. **Classical ML** — SVM (rbf)
+2. 2. **Ensemble Methods** - Random Forest & Gradient Boosting
 
-## Results (Classical Methods)
+## Results 
 
-### SVM (RBF kernel)
+| Metric | SVM (best) | Random Forest | Gradient Boosting |
+|---|---|---|---|
+| Accuracy | 0.74 | 0.75 | 0.76 |
+| Macro F1 | 0.63 | 0.62 | **0.65** |
+| Healthy (0) precision | 0.47 | 0.48 | **0.53** |
+| Healthy (0) recall | 0.42 | 0.33 | 0.40 |
+| Healthy (0) F1 | 0.44 | 0.40 | **0.45** |
+| Diseased (1) precision | 0.82 | 0.80 | 0.82 |
+| Diseased (1) recall | 0.84 | 0.88 | 0.88 |
+| Diseased (1) F1 | 0.83 | 0.84 | **0.85** |
 
-Two configurations were tested on the reduced 11-feature set (after dropping 
-highly correlated jitter/shimmer duplicates). Both evaluated using 5-fold 
-GroupKFold cross-validation (patient-grouped, pooled out-of-fold predictions).
+**Interpretation:** Gradient Boosting is the strongest model so far by a small 
+margin across most metrics. However, ensembles did **not** meaningfully solve 
+the healthy-class detection problem seen with SVM — Random Forest actually has 
+the worst healthy-class recall of all three models (0.33). This suggests the 
+bottleneck is not model choice but data: only 48 healthy recordings (~8 patients) 
+are available, split across 5 folds during cross-validation, leaving too little 
+minority-class signal for any of these methods to learn robustly.
 
-| Metric | Config 1 (C=10, gamma=0.01) | Config 2 (grid-searched, F1-macro optimized) |
-|---|---|---|
-| CV ROC-AUC | 0.74 ± 0.09 | — |
-| Accuracy | 0.69 | 0.74 |
-| Macro F1 | 0.62 | 0.63 |
-| Healthy (0) precision | 0.40 | 0.47 |
-| Healthy (0) recall | 0.54 | 0.42 |
-| Healthy (0) F1 | 0.46 | 0.44 |
-| Diseased (1) precision | 0.83 | 0.82 |
-| Diseased (1) recall | 0.73 | 0.84 |
-| Diseased (1) F1 | 0.78 | 0.83 |
+**Takeaway across classical + ensemble methods:** performance plateaus around 
+macro F1 ≈ 0.62–0.65 regardless of algorithm, pointing to a sample-size/class-
+imbalance ceiling rather than an algorithmic limitation. This motivates trying 
+the neural network approach next, though it's unlikely to fully overcome the 
+same underlying data constraint — more useful may be techniques like SMOTE, 
+class-weighted loss functions, or gathering additional healthy-patient recordings 
+if this were a real clinical project.
 
