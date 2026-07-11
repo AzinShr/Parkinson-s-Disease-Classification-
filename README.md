@@ -26,7 +26,7 @@ approaches: classical ML (SVM)
 
 ## Approaches
 1. **Classical ML** — SVM (rbf)
-2. 2. **Ensemble Methods** - Random Forest & Gradient Boosting
+2. **Ensemble Methods** - Random Forest & Gradient Boosting
 
 ## Results 
 
@@ -43,7 +43,7 @@ approaches: classical ML (SVM)
 
 **Interpretation:** Gradient Boosting is the strongest model so far by a small 
 margin across most metrics. However, ensembles did **not** meaningfully solve 
-the healthy-class detection problem seen with SVM — Random Forest actually has 
+the healthy-class detection problem seen with SVM; Random Forest actually has 
 the worst healthy-class recall of all three models (0.33). This suggests the 
 bottleneck is not model choice but data: only 48 healthy recordings (~8 patients) 
 are available, split across 5 folds during cross-validation, leaving too little 
@@ -53,7 +53,7 @@ minority-class signal for any of these methods to learn robustly.
 macro F1 ≈ 0.62–0.65 regardless of algorithm, pointing to a sample-size/class-
 imbalance ceiling rather than an algorithmic limitation. This motivates trying 
 the neural network approach next, though it's unlikely to fully overcome the 
-same underlying data constraint — more useful may be techniques like SMOTE, 
+same underlying data constraint; more useful may be techniques like SMOTE, 
 class-weighted loss functions, or gathering additional healthy-patient recordings 
 if this were a real clinical project.
 
